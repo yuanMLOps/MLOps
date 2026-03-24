@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: jenkins-ingress
+  namespace: jenkins
+  labels:
+    app.kubernetes.io/name: jenkinsingress
+spec:
+  ingressClassName: cutom-nginx # or "nginx" if you use built-in ingress controller
+  rules:
+  - host: jenkins.local # set this in your broswer host's DNS hosts file
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/" # jenkins can not do dynamic path routing, have to use / here
+        backend:
+          service:
+            name: jenkins
+            port: 
+              number: 8080
