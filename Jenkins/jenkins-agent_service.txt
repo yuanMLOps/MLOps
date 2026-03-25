@@ -1,0 +1,15 @@
+[Unit]
+
+Description=Jenkins Agent
+After=network.target
+
+[Service]
+
+User=<your-username> e.g. mongodb_sh the login user to worker node
+WorkingDirectory=/home/Jenkins
+
+ExecStart=java -jar agent.jar -url http://10.10.10.37:8080/ -secret ...03cf351c83f2fb -name "test" -webSocket -workDir "/home/jenkins"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

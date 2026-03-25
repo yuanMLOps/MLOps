@@ -1,0 +1,33 @@
+# Jenkins Pipeline Setup Guide for Bitbucket Polling
+
+This guide walks you through setting up a Jenkins Pipeline job that polls a Bitbucket repository daily and triggers a build only if there are code changes.
+
+## Step 1: Save the Jenkinsfile
+
+1. Copy the provided `Jenkinsfile` into the **root directory** of your Bitbucket repository.
+2. Commit and push the file to your repository.
+
+## Step 2: Create a Pipeline Job in Jenkins
+
+1. Open Jenkins and click **New Item**.
+2. Enter a name for your job and select **Pipeline**, then click **OK**.
+
+## Step 3: Configure the Pipeline Job
+
+1. Under **Pipeline → Definition**, select **Pipeline script from SCM**.
+2. Choose **Git** as the SCM.
+3. Enter your Bitbucket repository URL.
+4. Provide your **credentials ID** (SSH or HTTPS).
+5. Set the **Branch** to `main` (or your default branch).
+6. Set the **Script Path** to `Jenkinsfile`.
+
+## Step 4: Save and Run
+
+- Click **Save** to finish configuring the job.
+- Jenkins will now poll the repository daily at 2 AM and trigger a build only if changes are detected.
+
+## Notes
+
+- Do **not** enable "Poll SCM" in the GUI if you're using `pollSCM` in the Jenkinsfile.
+- You can adjust the polling schedule by modifying the cron expression in the `Jenkinsfile`.
+
