@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/rewrite-target":"/"},"name":"longhorn-ingress","namespace":"longhorn-system"},"spec":{"ingressClassName":"custom-nginx","rules":[{"host":"longhorn.local","http":{"paths":[{"backend":{"service":{"name":"longhorn-frontend","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]}}
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  creationTimestamp: "2025-07-24T00:20:57Z"
+  generation: 1
+  name: longhorn-ingress
+  namespace: longhorn-system
+  resourceVersion: "107683696"
+  uid: c54fedcf-2087-485c-9722-76350be7c8b6
+spec:
+  ingressClassName: custom-nginx
+  rules:
+  - host: longhorn.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: longhorn-frontend
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.43.210.84
