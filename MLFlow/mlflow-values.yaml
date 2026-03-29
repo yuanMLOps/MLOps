@@ -1,0 +1,30 @@
+tracking:
+  enabled: true
+
+backendStore:
+  type: postgresql
+  postgresql:
+    host: postgres.mlops.svc.cluster.local
+    port: 5432
+    database: mlflow
+    username: mlflow
+    password: mlflow123
+
+artifactStorage:
+  type: s3
+  s3:
+    bucket: mlflow
+    endpoint: http://minio.mlops.svc.cluster.local:9000
+    accessKey: minioadmin
+    secretKey: minioadmin123
+    region: us-east-1
+
+service:
+  type: NodePort
+  port: 5000
+  nodePort: 30500
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi

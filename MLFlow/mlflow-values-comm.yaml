@@ -1,0 +1,11 @@
+extraEnvVars:
+  MLFLOW_BACKEND_STORE_URI: postgresql://mlflow:mlflow123@postgres.mlops.svc.cluster.local:5432/mlflow
+  MLFLOW_DEFAULT_ARTIFACT_ROOT: s3://mlflow
+  MLFLOW_S3_ENDPOINT_URL: http://minio.mlops.svc.cluster.local:9000
+  AWS_ACCESS_KEY_ID: minioadmin
+  AWS_SECRET_ACCESS_KEY: minioadmin123
+  AWS_REGION: us-east-1
+
+service:
+  type: NodePort
+  port: 5000

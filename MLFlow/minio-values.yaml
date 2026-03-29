@@ -1,0 +1,25 @@
+
+mode: standalone    # switch to 'distributed' for distributed MinIO
+# replicas: 4       #  for distributed MinIO  
+# drivesPerNode: 1  #  for distributed MinIO
+
+rootUser: minioadmin
+rootPassword: minioadmin123
+
+buckets:
+  - name: mlflow
+    policy: none
+    purge: false
+
+persistence:
+  enabled: true
+  size: 10Gi
+
+service:
+  type: ClusterIP
+  port: 9000
+
+resources:
+  requests:
+    memory: 512Mi
+    cpu: 250m

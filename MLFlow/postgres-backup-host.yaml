@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-backup
+  namespace: mlops
+spec:
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: backup
+              image: postgres:15
+              envFrom:
+                - secretRef:
+                    name: postgres-secret
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  mkdir -p /backup &&
+                  pg_dump -Fc > /backup/mlflow-$(date +%F).dump
+              volumeMounts:
+                - name: backup
+                  mountPath: /backup
+          volumes:
+            - name: backup
+              hostPath:
+                path: /mnt/S/postgres-backups
+                type: DirectoryOrCreate
